@@ -1,7 +1,8 @@
 import express from 'express';
-import { newContact} from '../Controllers/Contact.js';
+import { deleteContact, newContact} from '../Controllers/Contact.js';
 import { getAllContact } from '../Controllers/Contact.js';
-import { getContactId } from '../Controllers/Contact.Js';
+import { getContactId } from '../Controllers/Contact.js';
+import { updateContact } from '../Controllers/Contact.js';
 const router = express.Router();
 
 
@@ -26,5 +27,21 @@ router.get('/:id', getContactId);
 // @api endpoint :- /api/contact/new
 
 router.post('/new', newContact);
+
+
+// Update Contact By Id
+// @api dsc :- Updating the contact
+// @api method :- PUT
+// @api endpoint :- /api/contact/update
+
+router.put('/:id', updateContact);
+
+
+// Delete Contact By Id
+// @api dsc :- Deleteing the contact
+// @api method :- Delete
+// @api endpoint :- /api/contact/update
+
+router.delete('/:id', deleteContact);
 
 export default router;
