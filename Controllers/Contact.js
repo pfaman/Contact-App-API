@@ -38,3 +38,40 @@ export const getContactId = async (req, res) => {
 
   return res.status(200).json({ message: "Contact retrieved successfully", contact: userContact, success: true });
 }
+
+// Update Contact By Id
+
+export const updateContact = async (req, res) => {
+
+  const id = req.params.id;
+  const { name ,  email , phone, type} = req.body
+
+  let updateContact = await Contact.findByIdAndUpdate(id, {
+
+    name,
+    email,
+    phone,
+    type
+  },{
+    new : true
+  });
+
+  if(!updateContact){
+    return res.json({message : "No contact exist", success : false})
+  }
+  return res.json({message : "Contact Updated Successfully!!!", success : true})
+}
+
+// Delete Contact By Id
+
+export const deleteContact = async (req, res) => {
+
+  const id = req.params.id;
+
+  let deleteContact = await Contact.findByIdAndDelete(id);
+
+  if(!deleteContact){
+    return res.json({message : "No contact exist", success : false})
+  }
+  return res.json({message : "Contact Deleted Successfully!!!", success : true})
+}
