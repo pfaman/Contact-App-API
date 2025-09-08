@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 import bodyParser from "express";
 import userRouter from "./Routes/User.js";
 import contactRouter from "./Routes/Contact.js";
+import { config } from "dotenv";
 
 const app = express();
-const PORT = 3000;
 
 app.use(bodyParser.json());
 
-
+// .env setup
+config({path : './.env'});
 
 // User Routes
 app.use("/api/user", userRouter);
@@ -24,13 +25,14 @@ app.get("/", (req, res) => {
 
 mongoose
   .connect(
-    "mongodb+srv://amantheiit:Jghj5FDtn0Z9onqf@cluster0.bnvueux.mongodb.net/",
+    process.env.MONGODB_URL,
     {
       dbName: "ContactApp",
     }
   )
   .then(() => console.log("Connected to ContactApp Database"))
   .catch((err) => console.log("Database connection error:", err));
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
